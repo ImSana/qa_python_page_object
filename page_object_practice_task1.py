@@ -3,8 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-
-# Класс страницы авторизации
+# класс страницы авторизации
 class LoginPageMesto:
     email_field = [By.ID, 'email']
     password_field = [By.ID, 'password']
@@ -27,8 +26,7 @@ class LoginPageMesto:
         self.set_password(password)
         self.click_sign_in_button()
 
-
-# Класс главной страницы
+# класс главной страницы
 class HomePageMesto:
     # создай локатор для поля «Занятие» в профиле пользователя
     profile_description = [By.CLASS_NAME, 'profile__description']
@@ -36,14 +34,14 @@ class HomePageMesto:
     def __init__(self, driver):
         self.driver = driver
 
-    # метод ожидания загрузки страницы - ожидаем загрузку по появлению поля Занятие
+    # метод ожидания загрузки страницы
+    # ожидаем появление поля «Занятие»
     def wait_for_load_home_page(self):
         WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.profile_description))
 
-    # метод для получения текстового значения поля «Занятие»
+    # метод для получения значения поля «Занятие»
     def get_description(self):
         return self.driver.find_element(*self.profile_description).text
-
 
 class TestPraktikum:
 
@@ -67,13 +65,13 @@ class TestPraktikum:
         home_page = HomePageMesto(self.driver)
         # дождись загрузки главной страницы
         home_page.wait_for_load_home_page()
-        # сохрани в переменную description текстовое значение поля «Занятие»
+        # сохрани в переменную description значение поля «Занятие»
         description = home_page.get_description()
 
-        # проверь, через assert что полученное текстовое значение поля «Занятие» совпадает с ожидаемым
+        # проверь через assert, что полученное текстовое значение поля «Занятие» совпадает с ожидаемым
         assert description == 'Исследователь'
 
     @classmethod
     def teardown_class(cls):
-        # Закрой браузер
+        # закрой браузер
         cls.driver.quit()

@@ -31,7 +31,7 @@ class LoginPageMesto:
 # Класс заголовка
 class HeaderPageMesto:
     # создай локатор для элемента c email в заголовке страницы
-    header_user = ...
+    header_user = [By.CLASS_NAME, 'header__user']
 
     def __init__(self, driver):
         self.driver = driver
@@ -42,7 +42,7 @@ class HeaderPageMesto:
 
     # метод для получения текста элемента в заголовке
     def email_in_header(self):
-        ...
+        return self.driver.find_element(*self.header_user)
 
 
 # класс с автотестом
